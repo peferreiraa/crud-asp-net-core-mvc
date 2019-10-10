@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SalesWeb.Models;
+using SalesWeb.Models.ViewModels;
 
 namespace SalesWeb.Controllers
 {
@@ -20,11 +20,14 @@ namespace SalesWeb.Controllers
 
         public IActionResult Index()
         {
+            
             return View();
         }
 
         public IActionResult Privacy()
         {
+            ViewData["email"] = "email@email.com";
+            ViewData["Desenvolvedor"] = "Pietro";
             return View();
         }
 
