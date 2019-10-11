@@ -9,8 +9,7 @@ namespace SalesWeb.Data
 {
     public class SeedingService
     {
-        //Quando um seeding service for criado
-        //ele vai receber uma estancia do context tbm
+     
         private SalesWebContext _context;
 
         public SeedingService(SalesWebContext context)
@@ -24,7 +23,7 @@ namespace SalesWeb.Data
             if(_context.Department.Any() || _context.Seller.Any()
                 || _context.SalesRecord.Any())
             {
-                return; //Db já populado
+                return; //Db já populada
             }
 
             Department d1 = new Department(1, "Computers");
