@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using SalesWeb.Services;
+using SalesWeb.Models;
 
 namespace SalesWeb.Controllers
 {
@@ -22,5 +23,19 @@ namespace SalesWeb.Controllers
 
             return View(list);
         }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(Seller seller)
+        {
+            _sellerService.Insert(seller);
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }
