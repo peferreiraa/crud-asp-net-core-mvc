@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -40,6 +42,17 @@ namespace SalesWeb
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, SeedingService seedingService)
         {
+            var eNus = new CultureInfo("en-Us");
+            var localizationOptions = new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture(eNus),
+                SupportedCultures = new List<CultureInfo> { eNus },
+                SupportedUICultures = new List<CultureInfo> { eNus }
+
+            };
+
+            app.UseRequestLocalization(localizationOptions);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
