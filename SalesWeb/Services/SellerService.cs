@@ -41,7 +41,7 @@ namespace SalesWeb.Services
                 var obj = await _context.Seller.FindAsync(id);
                 _context.Seller.Remove(obj);
                 await _context.SaveChangesAsync();
-            }
+            } 
             catch(DbUpdateException e)
             {
                 throw new IntegrityException("Can't delete seller because he/she has sales");
