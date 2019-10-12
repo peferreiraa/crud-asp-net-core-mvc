@@ -22,17 +22,21 @@ namespace SalesWeb.Controllers
             _departmentService = departmentService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string Search = "")
         {
             var list = await _sellerService.FindAllAsync();
+            if (!string.IsNullOrEmpty(Search))
+            {
+                list = list.Where(x => x.Name.ToUpper().Contains(Search.ToUpper())).OrderBy(x => x.Name.ToUpper()).ToList();
+            }
 
             return View(list);
         }
 
         public async Task<IActionResult> Create()
         {
-            var deparptments = await _departmentService.FindAllAsync();
-            var viewModel = new SellerFormViewModel { Departments = deparptments };
+            var departments = await _departmentService.FindAllAsync();
+            var viewModel = new SellerFormViewModel { Departments = departments };
             return View(viewModel);
         }
 
@@ -153,5 +157,7 @@ namespace SalesWeb.Controllers
             return View(viewModel);
         }
 
+
+        
     }
 }

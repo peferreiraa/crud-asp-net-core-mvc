@@ -19,9 +19,16 @@ namespace SalesWeb.Controllers
         }
 
         // GET: Departments
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string Search="")
         {
-            return View(await _context.Department.ToListAsync());
+
+            var list = await _context.Department.ToListAsync();
+            if (!string.IsNullOrEmpty(Search))
+            {
+                list = list.Where(x => x.Name.ToUpper().Contains(Search.ToUpper())).OrderBy(x => x.Name.ToUpper()).ToList();
+            }
+
+            return View(list);
         }
 
         // GET: Departments/Details/5
@@ -148,5 +155,8 @@ namespace SalesWeb.Controllers
         {
             return _context.Department.Any(e => e.Id == id);
         }
+
+
+        
     }
 }

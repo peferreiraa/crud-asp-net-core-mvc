@@ -36,6 +36,7 @@ namespace SalesWeb.Models
         public Department Department { get; set; }
         public int DepartmentId { get; set; }
         public ICollection<SalesRecord> Sales { get; set; } = new List<SalesRecord>();
+        //public object Seller { get; internal set; }
 
         public Seller()
         {
