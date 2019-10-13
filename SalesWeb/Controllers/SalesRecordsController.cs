@@ -48,15 +48,15 @@ namespace SalesWeb.Controllers
         {
             if(id == null)
             {
-                //return RedirectToAction(nameof(Error), new { message = "Id not provided" });
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { message = "Id not provided" });
+                
             }
 
             var obj = await _salesRecordService.FindByIdAsync(id.Value);
             if(obj == null)
             {
-                //return RedirectToAction(nameof(Error), new { messa = "Id mismatch" });
-                return NotFound();
+                return RedirectToAction(nameof(Error), new { messa = "Id mismatch" });
+                
             }
 
             return View(obj);
@@ -69,6 +69,25 @@ namespace SalesWeb.Controllers
         {
             await _salesRecordService.RemoveAsync(id);
             return RedirectToAction(nameof(Index));
+        }
+
+
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Id not provided" });
+
+            }
+
+            var obj = await _salesRecordService.FindByIdAsync(id.Value);
+            if (obj == null)
+            {
+                return RedirectToAction(nameof(Error), new { messa = "Id mismatch" });
+
+            }
+
+            return View(obj);
         }
 
         public async Task<IActionResult> SimpleSearch(DateTime? minDate, DateTime? maxDate)
@@ -87,6 +106,7 @@ namespace SalesWeb.Controllers
             var result = await _salesRecordService.FindByDateAsync(minDate, maxDate);
             return View(result);
         }
+
 
         public async Task<IActionResult> SalesSearchByDepartment(string Search = "")
         {

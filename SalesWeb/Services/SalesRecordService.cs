@@ -25,7 +25,7 @@ namespace SalesWeb.Services
 
         public async Task<SalesRecord> FindByIdAsync(int id)
         {
-            return await _context.SalesRecord.FirstOrDefaultAsync(obj => obj.Id == id);
+            return await _context.SalesRecord.Include(obj => obj.Seller).FirstOrDefaultAsync(obj => obj.Id == id);
         }
 
         public async Task RemoveAsync(int id)
