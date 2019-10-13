@@ -20,7 +20,7 @@ namespace SalesWeb.Services
         
         public async Task<List<Seller>> FindAllAsync()
         {
-            return await _context.Seller.ToListAsync();
+            return await _context.Seller.OrderBy(x => x.Name).ToListAsync();
         }
 
         public async Task InsertAsync(Seller obj)

@@ -5,13 +5,23 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="EntityFramework" Version="6.3.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Cosmos" Version="3.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.0.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+    <Compile Remove="Migrations\20191012233520_SalesRecordForeignKey.cs" />
+    <Compile Remove="Migrations\20191012233520_SalesRecordForeignKey.Designer.cs" />
+    <Compile Remove="Migrations\20191012234636_SalesRecordForeignKey.cs" />
+    <Compile Remove="Migrations\20191012234636_SalesRecordForeignKey.Designer.cs" />
+    <Compile Remove="Migrations\20191013003317_SalesRecordForeignKey.cs" />
+    <Compile Remove="Migrations\20191013003317_SalesRecordForeignKey.Designer.cs" />
+    <Compile Remove="Migrations\20191013014055_UpdateDB.cs" />
+    <Compile Remove="Migrations\20191013014055_UpdateDB.Designer.cs" />
+    <Compile Remove="Migrations\20191013014441_UpdateDB.cs" />
+    <Compile Remove="Migrations\20191013014441_UpdateDB.Designer.cs" />
+    <Compile Remove="Migrations\20191013015125_UpdateDB.cs" />
+    <Compile Remove="Migrations\20191013015125_UpdateDB.Designer.cs" />
+    <Compile Remove="Migrations\20191013015713_UpdateDB.cs" />
+    <Compile Remove="Migrations\20191013015713_UpdateDB.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -19,7 +29,6 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
-    <PackageReference Include="MySql.Data.EntityFrameworkCore.Design" Version="8.0.17" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.0.0-rc1.final" />
   </ItemGroup>
 
