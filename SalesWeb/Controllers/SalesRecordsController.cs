@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using SalesWeb.Services;
 using SalesWeb.Models;
 using SalesWeb.Models.ViewModels;
+using SalesWeb.Services.Exceptions;
+using SalesWeb.Models.ViewModels;
+using System.Diagnostics;
 
 namespace SalesWeb.Controllers
 {
@@ -40,6 +43,33 @@ namespace SalesWeb.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if(id == null)
+            {
+                //return RedirectToAction(nameof(Error), new { message = "Id not provided" });
+                return NotFound();
+            }
+
+            var obj = await _salesRecordService.FindByIdAsync(id.Value);
+            if(obj == null)
+            {
+                //return RedirectToAction(nameof(Error), new { messa = "Id mismatch" });
+                return NotFound();
+            }
+
+            return View(obj);
+
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _salesRecordService.RemoveAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
 
         public async Task<IActionResult> SimpleSearch(DateTime? minDate, DateTime? maxDate)
         {
@@ -87,8 +117,17 @@ namespace SalesWeb.Controllers
             
         }
 
-       
 
+        public IActionResult Error(string message)
+        {
+            var viewModel = new ErrorViewModel
+            {
+                Message = message,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            };
+
+            return View(viewModel);
+        }
 
     }
 }

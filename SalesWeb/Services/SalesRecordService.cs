@@ -23,6 +23,18 @@ namespace SalesWeb.Services
             await _context.SaveChangesAsync();
         }
 
+        public async Task<SalesRecord> FindByIdAsync(int id)
+        {
+            return await _context.SalesRecord.FirstOrDefaultAsync(obj => obj.Id == id);
+        }
+
+        public async Task RemoveAsync(int id)
+        {
+            var obj = await _context.SalesRecord.FindAsync(id);
+            _context.SalesRecord.Remove(obj);
+            _context.SaveChanges();
+        }
+
         public async Task<List<SalesRecord>> FindByDateAsync(DateTime? minDate, DateTime? maxDate)
         {
             var result = from obj in _context.SalesRecord select obj;

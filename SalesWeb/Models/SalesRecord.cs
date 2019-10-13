@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using SalesWeb.Models.Enums;
-
 namespace SalesWeb.Models
 {
     public class SalesRecord

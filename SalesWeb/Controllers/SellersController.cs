@@ -58,12 +58,12 @@ namespace SalesWeb.Controllers
         {
             if(id == null)
             {
-                return RedirectToAction(nameof(Error), new { messa = "Id not provided" });
+                return RedirectToAction(nameof(Error), new { message = "Id not provided" });
             }
             var obj = await _sellerService.FindByIdAsync(id.Value);
             if(obj == null)
             {
-                return RedirectToAction(nameof(Error), new { messa = "Id not found" });
+                return RedirectToAction(nameof(Error), new { message = "Id not found" });
             }
 
             return View(obj);
