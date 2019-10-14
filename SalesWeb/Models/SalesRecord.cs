@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 using SalesWeb.Models.Enums;
 namespace SalesWeb.Models
 {
@@ -7,6 +8,7 @@ namespace SalesWeb.Models
     {
         public int Id { get; set; }
 
+        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString ="{0:dd/MM/yyyy}")]
         public DateTime Date { get; set; }
 
@@ -33,5 +35,6 @@ namespace SalesWeb.Models
             Status = status;
             Seller = seller;
         }
+
     }
 }

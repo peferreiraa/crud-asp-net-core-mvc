@@ -104,17 +104,17 @@ namespace SalesWeb.Controllers
         {
             if(id == null)
             {
-                return RedirectToAction(nameof(Error), new { messa = "Id not provided" });
+                return RedirectToAction(nameof(Error), new { message = "Id not provided" });
             }
 
             var obj = await _sellerService.FindByIdAsync(id.Value);
             if(obj == null)
             {
-                return RedirectToAction(nameof(Error), new { messa = "Id not found" });
+                return RedirectToAction(nameof(Error), new { message = "Id not found" });
             }
 
             List<Department> departments = await _departmentService.FindAllAsync();
-            SellerFormViewModel viewModel = new SellerFormViewModel { Seller = obj, Departments = departments };
+            SellerFormViewModel viewModel = new SellerFormViewModel { Seller =  obj, Departments = departments };
 
             return View(viewModel);
         }
@@ -127,7 +127,7 @@ namespace SalesWeb.Controllers
             {
                 var departments = await _departmentService.FindAllAsync();
                 var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
-                return View(viewModel); ;
+                return View(viewModel);
             }
             if (id != seller.Id)
             {

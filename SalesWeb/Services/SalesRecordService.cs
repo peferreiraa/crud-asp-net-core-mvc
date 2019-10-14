@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SalesWeb.Models;
+using SalesWeb.Services.Exceptions;
 using Microsoft.EntityFrameworkCore;
 
 namespace SalesWeb.Services
@@ -34,6 +35,25 @@ namespace SalesWeb.Services
             _context.SalesRecord.Remove(obj);
             _context.SaveChanges();
         }
+
+        public async Task UpdateaAsync(SalesRecord obj)
+        {
+            bool hasAny = await _context.SalesRecord.AnyAsync(x => x.Id == obj.Id);
+            if (!hasAny)
+            {
+                throw new NotFoundException("Id not found");
+            }
+            try
+            {
+                _context.Update(obj);
+                await _context.SaveChangesAsync();
+            }
+            catch(DbUpdateConcurrencyException e){
+                throw new DbConcurrencyException(e.Message);
+            }
+            
+        }
+
 
         public async Task<List<SalesRecord>> FindByDateAsync(DateTime? minDate, DateTime? maxDate)
         {

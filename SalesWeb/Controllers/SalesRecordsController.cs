@@ -46,17 +46,17 @@ namespace SalesWeb.Controllers
 
         public async Task<IActionResult> Delete(int? id)
         {
-            if(id == null)
+            if (id == null)
             {
                 return RedirectToAction(nameof(Error), new { message = "Id not provided" });
-                
+
             }
 
             var obj = await _salesRecordService.FindByIdAsync(id.Value);
-            if(obj == null)
+            if (obj == null)
             {
                 return RedirectToAction(nameof(Error), new { messa = "Id mismatch" });
-                
+
             }
 
             return View(obj);
@@ -88,6 +88,49 @@ namespace SalesWeb.Controllers
             }
 
             return View(obj);
+        }
+
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Id not provided" });
+            }
+
+            var obj = await _salesRecordService.FindByIdAsync(id.Value);
+            if (obj == null)
+            {
+                return RedirectToAction(nameof(Error), new { messa = "Id mismatch" });
+
+            }
+
+            List<Seller> sellers = await _sellerService.FindAllAsync();
+            SalesRecordViewModel viewModel = new SalesRecordViewModel { SalesRecord = obj, Sellers = sellers };
+
+            return View(viewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, SalesRecord salesRecord)
+        {
+
+            if (id != salesRecord.Id)
+            {
+                return RedirectToAction(nameof(Error), new { message = "Id mismatch" });
+            }
+
+            try
+            {
+                
+                await _salesRecordService.UpdateaAsync(salesRecord);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (ApplicationException e)
+            {
+                return RedirectToAction(nameof(Error), new { message = e.Message });
+            }
+
         }
 
         public async Task<IActionResult> SimpleSearch(DateTime? minDate, DateTime? maxDate)
@@ -134,7 +177,7 @@ namespace SalesWeb.Controllers
             ViewData["maxDate"] = maxDate.Value.ToString("yyyy-MM-dd");
             var result = await _salesRecordService.FindByDateGroupingAsync(minDate, maxDate);
             return View(result);
-            
+
         }
 
 

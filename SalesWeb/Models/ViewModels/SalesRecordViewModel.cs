@@ -7,8 +7,6 @@ namespace SalesWeb.Models.ViewModels
 {
     public class SalesRecordViewModel
     {
-        public DateTime Date { get; set; }
-
         public SalesRecord SalesRecord { get; set; }
 
         public ICollection<Seller> Sellers { get; set; }
